@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Tambah Data Produk</title>
+  <style>
+    .container {
+      margin: 200px auto;
+      width: 400px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .form-text {
+      width: 100%;
+    }
+
+    .captcha-input {
+      width: 100px;
+    }
+
+    select {
+      width: 200px;
+    }
+  </style>
+
+  <script type="text/javascript">
+
+    // function generateCaptcha(){
+    //   const captcha = document.getElementById('captcha');
+    //   let result = [];
+
+    //   for(let i = 0; i < 5; i++){
+    //     let x = 65 + Math.floor(Math.floor(Math.random() * 52));
+    //     let y = String.fromCharCode(x);
+    //     result[i] = y;
+    //   }
+
+    //   captcha.innerHTML = result.join();
+    // }
+
+    function validateForm() {
+
+    }
+
+    function cekGrosir() {
+      const grosir = document.getElementById('grosir').value;
+      const hargaGrosir = document.getElementById('grosir');
+
+      if (grosir == 'true') {
+        hargaGrosir.setAttribute('disabled', 'false');
+      } else {
+        hargaGrosir.setAttribute('disabled', 'true');
+      }
+    }
+
+    var subcategory = {
+      'Baju': ["Baju Pria", "Baju Wanita", "Baju Anak"],
+      'Elektronik': ["Mesin Cuci", "Kulkas", "AC"],
+      'Alat Tulis': ["Kertas", "Map", "Pulpen"]
+    }
+
+    function makeSubmenu(value) {
+      if (value.length == 0) document.getElementById("categorySelect").innerHTML = "<option></option>";
+      else {
+        var citiesOptions = "";
+        for (categoryId in subcategory[value]) {
+          citiesOptions += "<option>" + subcategory[value][categoryId] + "</option>";
+        }
+        document.getElementById("categorySelect").innerHTML = citiesOptions;
+      }
+    }
+  </script>
+</head>
+
+<body class="container" onLoad="generateCaptcha()">
+  <div>
+    <h2>Form Tambah Data Produk</h2>
+  </div>
+  <div>
+    <form name="formtambahdata" onsubmit="return validateForm()" method="post">
+      <table>
+        <tr>
+          <td>Nama Produk</td>
+          <td><input id="namaProduk" class="form-text" type="text" name="fnama" required minlength="5" maxlength="30">
+          </td>
+        </tr>
+        <tr>
+          <td>Deskripsi</td>
+          <td><textarea id="deskripsi" class="form-text" name="fdeskripsi" required minlength="5"
+              maxlength="100"></textarea></td>
+        </tr>
+        <tr>
+          <td>Kategori</td>
+          <td>
+            <select id="kategori" name="fkategori" size="1" onchange="makeSubmenu(this.value)" required>
+              <option value="" disabled selected>--Pilih Kategori--</option>
+              <option>Baju</option>
+              <option>Elektronik</option>
+              <option>Alat Tulis</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Subkategori</td>
+          <td>
+            <select id="categorySelect" name="fsubkategori" size="1" required>
+              <option value="" disabled selected>--Pilih Sub Kategori--</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Harga Satuan</td>
+          <td><input class="form-text" type="number" name="fharga" required></td>
+        </tr>
+        <tr>
+          <td>
+            <label for="fgrosir">Grosir</label>
+          </td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <input type="radio" id="grosir" name="fgrosir" required value="Ya" onchange="cekGrosir()">Ya
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="radio" id="grosir" name="fgrosir" required value="Tidak" onchange="cekGrosir()">Tidak
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>Harga Grosir</td>
+          <td>
+            <input id="hargaGrosir" class="form-text" type="number" name="fharga" required>
+          </td>
+        </tr>
+        <tr>
+          <td>Jasa Kirim</td>
+          <td>
+            <input type="checkbox" id="ekspedisi1" name="ekspedisi1" value="JNE">
+            <label for="vehicle1">JNE</label><br>
+            <input type="checkbox" id="ekspedisi2" name="ekspedisi2" value="TIKI">
+            <label for="vehicle1">TIKI</label><br>
+            <input type="checkbox" id="ekspedisi3" name="ekspedisi3" value="SiCepat">
+            <label for="vehicle1">SiCepat</label><br>
+            <input type="checkbox" id="ekspedisi4" name="ekspedisi4" value="Ninja Express">
+            <label for="vehicle1">Ninja Express</label><br>
+            <input type="checkbox" id="ekspedisi5" name="ekspedisi5" value="Wahana">
+            <label for="vehicle1">Wahana</label><br>
+          </td>
+        </tr>
+        <tr>
+          <td>Captcha</td>
+          <td>
+            <table>
+              <td>
+                <input id="captcha" disabled class="captcha-input" type="text">
+              </td>
+              <td>
+                <input class="captcha-input" type="text">
+              </td>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="Tambah"></td>
+          <td><input type="reset" value="Reset"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</body>
+
+</html>
